@@ -29,8 +29,8 @@ public class ArticleEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDateTime;
 
-    @ElementCollection
-    private List<String> tagList;
+    @ManyToMany()
+    private List<TagEntity> tagList;
 
     @ManyToOne(cascade = {CascadeType.REMOVE})
     private UserEntity author;
