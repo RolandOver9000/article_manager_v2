@@ -40,4 +40,5 @@ public class UserEntity {
     @OneToMany(mappedBy = "author")
     @EqualsAndHashCode.Exclude
     private List<CommentEntity> comments;
+
 }
