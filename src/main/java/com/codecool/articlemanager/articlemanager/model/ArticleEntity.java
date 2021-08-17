@@ -1,8 +1,7 @@
 package com.codecool.articlemanager.articlemanager.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Article {
+public class ArticleEntity {
 
     @Id
     @GeneratedValue
@@ -36,7 +35,10 @@ public class Article {
     @ManyToOne(cascade = {CascadeType.REMOVE})
     private UserEntity author;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ToString.Exclude
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private List<Comment> comments;
 
     private int favoriteCount;
