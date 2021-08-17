@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,5 +39,6 @@ public class UserEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "author")
     @EqualsAndHashCode.Exclude
-    private List<Comment> comments;
+    private List<CommentEntity> comments;
+
 }

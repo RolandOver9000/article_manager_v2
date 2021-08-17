@@ -39,7 +39,7 @@ public class ArticleEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
-    private List<Comment> comments;
+    private List<CommentEntity> comments;
 
     private int favoriteCount;
 
