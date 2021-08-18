@@ -4,10 +4,7 @@ import com.codecool.articlemanager.articlemanager.model.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,10 @@ public class ArticleController {
     @GetMapping("")
     public ResponseEntity<List<ArticleEntity>> getAllArticles() {
         return ResponseEntity.ok(articleService.getAllArticles());
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Long> saveArticle(@RequestBody ArticleEntity newArticle) {
+        return ResponseEntity.ok(articleService.saveArticle(newArticle));
     }
 }
