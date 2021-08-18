@@ -16,4 +16,9 @@ public class ArticleService {
     public List<ArticleEntity> getAllArticles() {
         return articleRepository.findAll();
     }
+
+    public Long saveArticle(ArticleEntity newArticle) {
+        ArticleEntity savedArticle = articleRepository.save(newArticle);
+        return savedArticle.getId();
+    }
 }

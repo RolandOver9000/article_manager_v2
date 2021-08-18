@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends CrudRepository<ArticleEntity, Long> {
+
     List<ArticleEntity> findAll();
 }
