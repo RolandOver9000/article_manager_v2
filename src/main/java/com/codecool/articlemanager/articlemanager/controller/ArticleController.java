@@ -31,4 +31,9 @@ public class ArticleController {
     public ResponseEntity<Long> saveArticle(@RequestBody ArticleEntity newArticle) {
         return ResponseEntity.ok(articleService.saveArticle(newArticle));
     }
+
+    @PutMapping("/")
+    public ResponseEntity<Long> updateArticle(@RequestBody ArticleEntity updatedArticle) {
+        return ResponseEntity.ok(articleService.updateArticleById(updatedArticle));
+    }
 }
