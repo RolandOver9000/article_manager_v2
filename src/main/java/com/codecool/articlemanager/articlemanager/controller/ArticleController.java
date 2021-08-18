@@ -32,8 +32,17 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.saveArticle(newArticle));
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public ResponseEntity<Long> updateArticle(@RequestBody ArticleEntity updatedArticle) {
         return ResponseEntity.ok(articleService.updateArticleById(updatedArticle));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteArticleById(@PathVariable(value ="id") Long id) {
+        boolean isArticleDeleted = articleService.deleteArticle(id);
+        if(isArticleDeleted) {
+            return ResponseEntity.ok("Successfully deleted the article.");
+        }
+        return ResponseEntity.ok("There were a problem during the deletion process.");
     }
 }
