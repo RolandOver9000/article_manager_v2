@@ -5,6 +5,7 @@ import com.codecool.articlemanager.articlemanager.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,5 +21,11 @@ public class ArticleService {
     public Long saveArticle(ArticleEntity newArticle) {
         ArticleEntity savedArticle = articleRepository.save(newArticle);
         return savedArticle.getId();
+    }
+
+    public ArticleEntity getArticleById(Long id) {
+        return articleRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Article not found by id: " + id));
     }
 }
