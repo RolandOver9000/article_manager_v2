@@ -28,4 +28,9 @@ public class ArticleService {
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Article not found by id: " + id));
     }
+
+    public Long updateArticleById(ArticleEntity updatedArticle) {
+        ArticleEntity articleEntity = articleRepository.save(updatedArticle);
+        return articleEntity.getId();
+    }
 }
