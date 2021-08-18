@@ -33,4 +33,14 @@ public class ArticleService {
         ArticleEntity articleEntity = articleRepository.save(updatedArticle);
         return articleEntity.getId();
     }
+
+    public boolean deleteArticle(Long id) {
+        try {
+            articleRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error during article deletion.");
+        }
+        return false;
+    }
 }
