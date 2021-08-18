@@ -3,12 +3,13 @@ package com.codecool.articlemanager.articlemanager.controller;
 import com.codecool.articlemanager.articlemanager.model.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/articles")
 @CrossOrigin(origins = "*")
@@ -19,6 +20,11 @@ public class ArticleController {
     @GetMapping("")
     public ResponseEntity<List<ArticleEntity>> getAllArticles() {
         return ResponseEntity.ok(articleService.getAllArticles());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticleEntity> getArticleById(@PathVariable(value="id") Long id) {
+        return ResponseEntity.ok(articleService.getArticleById(id));
     }
 
     @PostMapping("")
