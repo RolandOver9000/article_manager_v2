@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Data
 public class ArticleEntity {
 
     @Id
