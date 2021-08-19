@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingComment;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.model.entity.CommentEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
@@ -56,10 +57,11 @@ public class ArticleController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long id,
-                                                        @RequestBody CommentEntity comment) {
+    public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long articleId,
+                                                        @RequestBody IncomingComment comment) {
         try{
-            return ResponseEntity.ok(commentService.saveCommentByArticleId(id));
+            commentService.saveCommentByArticleId(articleId, comment);
+            return ResponseEntity.ok("Comment successfully saved.");
         } catch (Exception e) {
             System.out.println("Error during saving a comment.");
         }
