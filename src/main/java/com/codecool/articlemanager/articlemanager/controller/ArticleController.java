@@ -1,6 +1,7 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
 import com.codecool.articlemanager.articlemanager.model.ArticleEntity;
+import com.codecool.articlemanager.articlemanager.model.CommentEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final CommentService commentService;
 
     @GetMapping("")
     public ResponseEntity<List<ArticleEntity>> getAllArticles() {
@@ -38,11 +40,16 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteArticleById(@PathVariable(value ="id") Long id) {
+    public ResponseEntity<String> deleteArticleById(@PathVariable(value="id") Long id) {
         boolean isArticleDeleted = articleService.deleteArticle(id);
         if(isArticleDeleted) {
             return ResponseEntity.ok("Successfully deleted the article.");
         }
         return ResponseEntity.ok("There were a problem during the deletion process.");
+    }
+    
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<CommentEntity>> getAllCommentsByArticleId(@PathVariable(value="id") Long id) {
+        return ResponseEntity.ok(commentService.getCommentsByArticleId(id));
     }
 }
