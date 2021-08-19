@@ -3,6 +3,7 @@ package com.codecool.articlemanager.articlemanager.controller;
 import com.codecool.articlemanager.articlemanager.model.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.model.CommentEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
+import com.codecool.articlemanager.articlemanager.service.CommentService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
