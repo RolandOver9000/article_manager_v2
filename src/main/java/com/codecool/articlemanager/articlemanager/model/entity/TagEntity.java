@@ -1,5 +1,6 @@
-package com.codecool.articlemanager.articlemanager.model;
+package com.codecool.articlemanager.articlemanager.model.entity;
 
+import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

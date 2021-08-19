@@ -1,13 +1,14 @@
 package com.codecool.articlemanager.articlemanager.repository;
 
-import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
+import com.codecool.articlemanager.articlemanager.model.entity.CommentEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ArticleRepository extends CrudRepository<ArticleEntity, Long> {
+public interface CommentRepository extends CrudRepository<CommentEntity, Long> {
 
-    List<ArticleEntity> findAll();
+    List<CommentEntity> findAllByArticleId(Long id);
+
 }

@@ -1,6 +1,6 @@
 package com.codecool.articlemanager.articlemanager.service;
 
-import com.codecool.articlemanager.articlemanager.model.ArticleEntity;
+import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

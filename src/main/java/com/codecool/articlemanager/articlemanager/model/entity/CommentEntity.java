@@ -1,8 +1,7 @@
-package com.codecool.articlemanager.articlemanager.model;
+package com.codecool.articlemanager.articlemanager.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Entity
+@Data
 public class CommentEntity {
 
     @Id
@@ -22,6 +22,9 @@ public class CommentEntity {
 
     private String body;
 
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = {CascadeType.REMOVE})
     private ArticleEntity article;
 

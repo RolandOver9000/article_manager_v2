@@ -1,6 +1,5 @@
-package com.codecool.articlemanager.articlemanager.model;
+package com.codecool.articlemanager.articlemanager.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,9 +8,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Data
+@Builder
 public class ArticleEntity {
 
     @Id
@@ -36,7 +35,6 @@ public class ArticleEntity {
     @ManyToOne(cascade = {CascadeType.REMOVE})
     private UserEntity author;
 
-    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
