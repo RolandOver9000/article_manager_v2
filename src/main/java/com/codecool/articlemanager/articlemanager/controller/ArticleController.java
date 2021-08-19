@@ -67,4 +67,16 @@ public class ArticleController {
         }
             return ResponseEntity.ok("There were a problem during saving your comment.");
     }
+
+    @DeleteMapping("/{articleId}/comments/{commentId}")
+    public ResponseEntity<String> deleteCommentById(@PathVariable(value="articleId") Long articleId,
+                                                    @PathVariable(value="commentId") Long commentId) {
+        try{
+            commentService.deleteCommentById(commentId);
+            return ResponseEntity.ok("Comment successfully delete.");
+        } catch (Exception e) {
+            System.out.println("Error during the comment deletion process.");
+        }
+        return ResponseEntity.ok("There was a problem during deleting your comment.");
+    }
 }
