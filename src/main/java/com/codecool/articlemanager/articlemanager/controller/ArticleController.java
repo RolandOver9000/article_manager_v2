@@ -1,10 +1,9 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
-import com.codecool.articlemanager.articlemanager.model.ArticleEntity;
-import com.codecool.articlemanager.articlemanager.model.CommentEntity;
+import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
+import com.codecool.articlemanager.articlemanager.model.entity.CommentEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import com.codecool.articlemanager.articlemanager.service.CommentService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +58,11 @@ public class ArticleController {
     @PostMapping("/{id}/comments")
     public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long id,
                                                         @RequestBody CommentEntity comment) {
-        return ResponseEntity.ok(commentService.saveCommentByArticleId(id));
+        try{
+            return ResponseEntity.ok(commentService.saveCommentByArticleId(id));
+        } catch (Exception e) {
+            System.out.println("Error during saving a comment.");
+        }
+            return ResponseEntity.ok("There were a problem during saving your comment.");
     }
 }
