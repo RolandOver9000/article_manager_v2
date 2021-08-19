@@ -9,9 +9,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Data
+@Builder
 public class ArticleEntity {
 
     @Id
@@ -36,7 +36,6 @@ public class ArticleEntity {
     @ManyToOne(cascade = {CascadeType.REMOVE})
     private UserEntity author;
 
-    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
