@@ -48,9 +48,17 @@ public class ArticleController {
         }
         return ResponseEntity.ok("There were a problem during the deletion process.");
     }
-    
+
+    //Endpoints for article comments
+
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentEntity>> getAllCommentsByArticleId(@PathVariable(value="id") Long id) {
         return ResponseEntity.ok(commentService.getCommentsByArticleId(id));
+    }
+
+    @PostMapping("/{id}/comments")
+    public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long id,
+                                                        @RequestBody CommentEntity comment) {
+        return ResponseEntity.ok(commentService.saveCommentByArticleId(id));
     }
 }
