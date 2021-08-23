@@ -71,4 +71,18 @@ public class JwtService {
         return false;
     }
 
+
+    public Authentication parseUserFromTokenInfo(String token) throws UsernameNotFoundException {
+        Claims body = parseTokenBody(token);
+        String username = body.getSubject();
+        List<String> roles = body.get(rolesFieldName, ArrayList.class);
+        var authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toCollection(LinkedList::new));
+        return new UsernamePasswordAuthenticationToken(username, "", authorities);
+    }
+
+    private Claims parseTokenBody(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+    }
 }
