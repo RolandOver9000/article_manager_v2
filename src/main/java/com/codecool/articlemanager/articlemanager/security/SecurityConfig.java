@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.security;
 
+import com.codecool.articlemanager.articlemanager.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final UserDetailsServiceImpl userDetailsService;
+
     private final String[] SWAGGER_WHITELIST = {
             "/swagger-resources/**",
             "/swagger-ui.html",
@@ -47,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService()
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
