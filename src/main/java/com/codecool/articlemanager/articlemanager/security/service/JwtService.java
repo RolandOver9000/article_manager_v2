@@ -57,4 +57,8 @@ public class JwtService {
                 .findFirst();
     }
 
+    public String getTokenFromRequest(HttpServletRequest request) {
+        return getTokenCookieFromRequest(request).map(Cookie::getValue).orElse(null);
+    }
+    
 }
