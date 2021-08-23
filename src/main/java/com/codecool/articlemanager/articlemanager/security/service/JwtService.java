@@ -49,4 +49,12 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
+
+    public Optional<Cookie> getTokenCookieFromRequest(HttpServletRequest request) {
+        if (request.getCookies() == null) return Optional.empty();
+        return Arrays.stream(request.getCookies())
+                .filter(cookie -> "JWT".equals(cookie.getName()))
+                .findFirst();
+    }
+
 }
