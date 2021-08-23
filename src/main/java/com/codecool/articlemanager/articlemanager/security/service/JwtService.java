@@ -60,5 +60,15 @@ public class JwtService {
     public String getTokenFromRequest(HttpServletRequest request) {
         return getTokenCookieFromRequest(request).map(Cookie::getValue).orElse(null);
     }
-    
+
+    public boolean validateToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            return claims.getBody().getExpiration().after(new Date());
+        } catch (JwtException | IllegalArgumentException e) {
+            log.debug("JWT invalid " + e);
+        }
+        return false;
+    }
+
 }
