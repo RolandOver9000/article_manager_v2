@@ -25,6 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**"
     };
 
+    private final String[] AUTH_WHITELIST = {
+            "/auth/login",
+            "/auth/registration"};
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource(@Value("${frontend.url:http://localhost:3000}") String frontendUrl) {
         final CorsConfiguration configuration = new CorsConfiguration();
@@ -51,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/registration", "/auth/logout", "/favicon*").permitAll()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(SWAGGER_WHITELIST).permitAll();
     }
 }
