@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Data
 public class UserEntity {
 
     @Id
@@ -28,6 +29,9 @@ public class UserEntity {
 
     @ManyToMany(cascade = {CascadeType.REMOVE})
     private List<ArticleEntity> favorites;
+
+    @ElementCollection
+    private List<String> roles;
 
     @JsonIgnore
     @ToString.Exclude
