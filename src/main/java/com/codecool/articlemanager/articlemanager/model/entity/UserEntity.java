@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.model.entity;
 
+import com.codecool.articlemanager.articlemanager.model.dto.RegistrationDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -45,4 +46,11 @@ public class UserEntity {
     @EqualsAndHashCode.Exclude
     private List<CommentEntity> comments;
 
+    public static UserEntity transformDTO(RegistrationDTO registrationData) {
+        return UserEntity.builder()
+                .username(registrationData.getUsername())
+                .email(registrationData.getEmailAddress())
+                .password(registrationData.getPassword())
+                .build();
+    }
 }
