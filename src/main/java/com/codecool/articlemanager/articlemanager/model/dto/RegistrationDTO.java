@@ -10,7 +10,7 @@ import lombok.Data;
 public class RegistrationDTO {
 
     private String emailAddress;
-    private String registrationUsername;
-    private String registrationPassword;
+    private String username;
+    private String password;
 
 }
