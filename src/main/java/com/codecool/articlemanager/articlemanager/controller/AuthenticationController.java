@@ -1,6 +1,7 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
 import com.codecool.articlemanager.articlemanager.model.dto.LoginDTO;
+import com.codecool.articlemanager.articlemanager.service.LoginService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/auth")
 @CrossOrigin("*")
 public class AuthenticationController {
+
+    private final LoginService loginService;
 
     @PostMapping("/login")
     public Long login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
