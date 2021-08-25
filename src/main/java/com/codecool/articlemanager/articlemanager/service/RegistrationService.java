@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @RequiredArgsConstructor
 @Service
 public class RegistrationService {
@@ -20,7 +22,7 @@ public class RegistrationService {
             try {
                 saveUser(registrationData);
             } catch (Exception e) {
-                System.out.println("Error during persisting new user.");
+                throw new SQLException("Error during persisting new user.");
             }
         } else {
             throw new Exception("Registration data is not valid.");
