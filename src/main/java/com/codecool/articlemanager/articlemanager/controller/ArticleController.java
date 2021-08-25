@@ -58,7 +58,14 @@ public class ArticleController {
 
     @PutMapping("")
     public ResponseEntity<Long> updateArticle(@RequestBody ArticleEntity updatedArticle) {
-        return ResponseEntity.ok(articleService.updateArticleById(updatedArticle));
+        log.info("Received update request for updating article.");
+        try {
+            return ResponseEntity.ok(articleService.updateArticleById(updatedArticle));
+        } catch (Exception e) {
+            log.error("Error during updating article.");
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during updating article.");
+        }
     }
 
     @DeleteMapping("/{id}")
