@@ -37,7 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] AUTH_WHITELIST = {
             "/auth/login",
-            "/auth/registration"};
+            "/auth/registration"
+    };
+
+    private final String[] ARTICLES_PROTECTED_ENDPOINTS = {
+            "/articles",
+            "/articles/**"
+    };
 
     @Override
     @Bean
@@ -85,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
+                .antMatchers(ARTICLES_PROTECTED_ENDPOINTS).authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
