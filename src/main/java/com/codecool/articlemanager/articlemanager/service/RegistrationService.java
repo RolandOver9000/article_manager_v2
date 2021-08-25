@@ -15,13 +15,15 @@ public class RegistrationService {
     private final RegistrationValidationService registrationValidationService;
     private final UserRepository userRepository;
 
-    public void register(RegistrationDTO registrationData) {
+    public void register(RegistrationDTO registrationData) throws Exception {
         if(registrationValidationService.isRegistrationValid(registrationData)) {
             try {
                 saveUser(registrationData);
             } catch (Exception e) {
                 System.out.println("Error during persisting new user.");
             }
+        } else {
+            throw new Exception("Registration data is not valid.");
         }
     }
 
