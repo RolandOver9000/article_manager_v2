@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,6 +26,7 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtFilter jwtFilter;
 
     private final String[] SWAGGER_WHITELIST = {
             "/swagger-resources/**",
@@ -35,7 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] AUTH_WHITELIST = {
             "/auth/login",
-            "/auth/registration"};
+            "/auth/registration"
+    };
+
+    private final String[] ARTICLES_PROTECTED_ENDPOINTS = {
+            "/articles",
+            "/articles/**"
+    };
 
     @Override
     @Bean
@@ -82,6 +90,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers(SWAGGER_WHITELIST).permitAll();
+                .antMatchers(SWAGGER_WHITELIST).permitAll()
+                .antMatchers(ARTICLES_PROTECTED_ENDPOINTS).authenticated()
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
