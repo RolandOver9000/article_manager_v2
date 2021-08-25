@@ -4,13 +4,17 @@ import com.codecool.articlemanager.articlemanager.model.dto.IncomingComment;
 import com.codecool.articlemanager.articlemanager.model.entity.CommentEntity;
 import com.codecool.articlemanager.articlemanager.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 @RequestMapping("/articles")
 @CrossOrigin(origins = "*")
 public class CommentController {
@@ -19,7 +23,14 @@ public class CommentController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentEntity>> getAllCommentsByArticleId(@PathVariable(value="id") Long id) {
-        return ResponseEntity.ok(commentService.getCommentsByArticleId(id));
+        log.info("Received get request for article comments. ArticleId: " + id.toString());
+        try {
+            return ResponseEntity.ok(commentService.getCommentsByArticleId(id));
+        } catch (Exception e) {
+            log.error("Error during getting comments for article. ArticleId: " + id.toString());
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting comments for article. ArticleId: " + id.toString());
+        }
     }
 
     @PostMapping("/{id}/comments")
