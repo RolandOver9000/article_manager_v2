@@ -42,12 +42,18 @@ public class ArticleController {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting article by id: " + id.toString());
         }
-
     }
 
     @PostMapping("")
     public ResponseEntity<Long> saveArticle(@RequestBody ArticleEntity newArticle) {
-        return ResponseEntity.ok(articleService.saveArticle(newArticle));
+        log.info("Received post request for saving article.");
+        try {
+            return ResponseEntity.ok(articleService.saveArticle(newArticle));
+        } catch (Exception e) {
+            log.error("Error during saving article.");
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during saving article.");
+        }
     }
 
     @PutMapping("")
