@@ -3,13 +3,17 @@ package com.codecool.articlemanager.articlemanager.controller;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 @RequestMapping("/articles")
 @CrossOrigin(origins = "*")
 public class ArticleController {
@@ -18,7 +22,14 @@ public class ArticleController {
 
     @GetMapping("")
     public ResponseEntity<List<ArticleEntity>> getAllArticles() {
-        return ResponseEntity.ok(articleService.getAllArticles());
+        log.info("Received get request for getting all articles.");
+        try {
+            return ResponseEntity.ok(articleService.getAllArticles());
+        } catch (Exception e) {
+            log.error("Error during getting all articles.");
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting all articles.");
+        }
     }
 
     @GetMapping("/{id}")
