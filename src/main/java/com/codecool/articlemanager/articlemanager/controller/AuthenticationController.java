@@ -29,7 +29,7 @@ public class AuthenticationController {
         try {
             return ResponseEntity.ok(loginService.tryLogin(loginDTO, response));
         } catch (Exception e) {
-            log.info("Error during login.");
+            log.error("Error during login.");
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, "Error during login.");
         }
@@ -37,13 +37,15 @@ public class AuthenticationController {
 
     @PostMapping("/registration")
     public ResponseEntity<String> registration(@RequestBody RegistrationDTO registrationDTO) {
+        log.info("Registration request received: " + registrationDTO.toString());
         try {
             registrationService.register(registrationDTO);
             return ResponseEntity.ok("Registration is successful.");
         } catch (Exception e) {
-            System.out.println("Error during registration.");
+            log.error("Error during registration.");
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, "Error during registration.");
         }
-        return ResponseEntity.ok("Error during registration.");
     }
 
 }
