@@ -34,7 +34,15 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleEntity> getArticleById(@PathVariable(value="id") Long id) {
-        return ResponseEntity.ok(articleService.getArticleById(id));
+        log.info("Received get request for getting article by id: " + id.toString());
+        try {
+            return ResponseEntity.ok(articleService.getArticleById(id));
+        } catch (Exception e) {
+            log.error("Error during getting article by id: " + id.toString());
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting article by id: " + id.toString());
+        }
+
     }
 
     @PostMapping("")
