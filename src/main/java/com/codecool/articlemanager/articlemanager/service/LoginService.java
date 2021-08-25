@@ -30,10 +30,10 @@ public class LoginService {
     private final JwtService jwtService;
     private final CookieService cookieService;
 
-    public Long tryLogin(LoginDTO loginDTO, HttpServletResponse response) {
+    public String tryLogin(LoginDTO loginDTO, HttpServletResponse response) {
         Authentication authentication = tryAuthenticate(loginDTO);
         if (authentication == null)
-            return -1L;
+            return "-1";
         return login(authentication, response);
     }
 
@@ -55,7 +55,7 @@ public class LoginService {
         return cookieService.createTokenCookie(token, Duration.ofHours(24));
     }
 
-    private Long login(Authentication authentication, HttpServletResponse response) {
+    private String login(Authentication authentication, HttpServletResponse response) {
         List<String> roles = getRolesFrom(authentication);
         String username = authentication.getName();
         //try to collect only the id of the user
@@ -64,7 +64,7 @@ public class LoginService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         ResponseCookie generatedCookie = generateResponseCookie(foundUser, roles);
         response.addHeader("Set-Cookie", generatedCookie.toString());
-        return foundUser.getId();
+        return foundUser.getId().toString();
     }
 
     private List<String> getRolesFrom(Authentication authentication) {

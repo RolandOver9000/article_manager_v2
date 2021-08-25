@@ -22,9 +22,14 @@ public class AuthenticationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/login")
-    public Long login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         log.info("Login request received: " + loginDTO.toString());
-        return loginService.tryLogin(loginDTO, response);
+        try {
+            return ResponseEntity.ok(loginService.tryLogin(loginDTO, response));
+        } catch (Exception e) {
+            log.info("Error during login.");
+            return ResponseEntity.ok("Error during login.");
+        }
     }
 
     @PostMapping("/registration")
