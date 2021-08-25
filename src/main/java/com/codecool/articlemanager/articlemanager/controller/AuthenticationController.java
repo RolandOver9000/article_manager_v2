@@ -6,8 +6,10 @@ import com.codecool.articlemanager.articlemanager.service.LoginService;
 import com.codecool.articlemanager.articlemanager.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +30,8 @@ public class AuthenticationController {
             return ResponseEntity.ok(loginService.tryLogin(loginDTO, response));
         } catch (Exception e) {
             log.info("Error during login.");
-            return ResponseEntity.ok("Error during login.");
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, "Error during login.");
         }
     }
 
