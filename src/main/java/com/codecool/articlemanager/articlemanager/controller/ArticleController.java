@@ -70,10 +70,14 @@ public class ArticleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteArticleById(@PathVariable(value="id") Long id) {
-        boolean isArticleDeleted = articleService.deleteArticle(id);
-        if(isArticleDeleted) {
-            return ResponseEntity.ok("Successfully deleted the article.");
+        log.info("Received delete request for deleting article.");
+        try {
+            articleService.deleteArticle(id);
+            return ResponseEntity.ok("Article successfully deleted.");
+        } catch (Exception e) {
+            log.error("Error during deleting article.");
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during deleting article.");
         }
-        return ResponseEntity.ok("There were a problem during the deletion process.");
     }
 }
