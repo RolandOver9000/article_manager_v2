@@ -48,14 +48,15 @@ public class CommentController {
     }
 
     @DeleteMapping("/{articleId}/comments/{commentId}")
-    public ResponseEntity<String> deleteCommentById(@PathVariable(value="articleId") Long articleId,
+    public ResponseEntity<String> deleteCommentById(@PathVariable(value="articleId") Long id,
                                                     @PathVariable(value="commentId") Long commentId) {
-        try{
+        try {
             commentService.deleteCommentById(commentId);
-            return ResponseEntity.ok("Comment successfully delete.");
+            return ResponseEntity.ok("Comment successfully deleted.");
         } catch (Exception e) {
-            System.out.println("Error during the comment deletion process.");
+            log.error("Error during deleting comment for article. ArticleId: " + id.toString());
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during deleting comment for article. ArticleId: " + id.toString());
         }
-        return ResponseEntity.ok("There was a problem during deleting your comment.");
     }
 }
