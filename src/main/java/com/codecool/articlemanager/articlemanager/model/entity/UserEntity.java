@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.model.entity;
 
+import com.codecool.articlemanager.articlemanager.model.dto.RegistrationDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Data
 public class UserEntity {
 
     @Id
@@ -29,6 +31,9 @@ public class UserEntity {
     @ManyToMany(cascade = {CascadeType.REMOVE})
     private List<ArticleEntity> favorites;
 
+    @ElementCollection
+    private List<String> roles;
+
     @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "author")
@@ -41,4 +46,11 @@ public class UserEntity {
     @EqualsAndHashCode.Exclude
     private List<CommentEntity> comments;
 
+    public static UserEntity transformDTO(RegistrationDTO registrationData) {
+        return UserEntity.builder()
+                .username(registrationData.getUsername())
+                .email(registrationData.getEmailAddress())
+                .password(registrationData.getPassword())
+                .build();
+    }
 }
