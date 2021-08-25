@@ -34,15 +34,17 @@ public class CommentController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long articleId,
+    public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long id,
                                                         @RequestBody IncomingComment comment) {
-        try{
-            commentService.saveCommentByArticleId(articleId, comment);
+        log.info("Received post request for saving comment. ArticleId: " + id.toString());
+        try {
+            commentService.saveCommentByArticleId(id, comment);
             return ResponseEntity.ok("Comment successfully saved.");
         } catch (Exception e) {
-            System.out.println("Error during saving a comment.");
+            log.error("Error during saving comment for article. ArticleId: " + id.toString());
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during saving comment for article. ArticleId: " + id.toString());
         }
-        return ResponseEntity.ok("There were a problem during saving your comment.");
     }
 
     @DeleteMapping("/{articleId}/comments/{commentId}")
