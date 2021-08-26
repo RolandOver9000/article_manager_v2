@@ -14,8 +14,8 @@ export type RegistrationDataType = {
 
 export interface RegistrationContextType {
     tryRegistration: (inputs: RegistrationDataType) => void;
-    registrationErrors: Object;
-    clearRegistrationErrors: () => void;
+    registrationError: String;
+    clearRegistrationError: () => void;
     showRegistrationModal: boolean;
     setShowRegistrationModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -24,27 +24,27 @@ export const RegistrationContext = createContext<RegistrationContextType>({} as 
 
 export const RegistrationProvider = (props: PropsType) => {
 
-    const[registrationErrors, setRegistrationErrors] = useState<Object>({});
+    const[registrationError, setRegistrationError] = useState<String>("");
     const[showRegistrationModal, setShowRegistrationModal] = useState<boolean>(false);
 
-    const clearRegistrationErrors = () => {
-      setRegistrationErrors({});
+    const clearRegistrationError = () => {
+      setRegistrationError("");
     }
 
     const tryRegistration = (inputs: RegistrationDataType) => {
-      clearRegistrationErrors();
+      clearRegistrationError();
       registration(inputs);
     }
 
     const registration = (inputs: RegistrationDataType) => {
-        Axios.post(process.env.REACT_APP_API_BACKEND_URL + "/api/users", inputs, {
+        Axios.post(process.env.REACT_APP_API_BACKEND_URL + "/auth/registration", inputs, {
           headers: {
             "Content-Type": "application/json",
           },
         }).then(() => {
           setShowRegistrationModal(false);
         }).catch((error) => {
-            setRegistrationErrors(error.response.data.errors);
+            setRegistrationError(error.response.data.message);
             setShowRegistrationModal(true);
           });
       };
@@ -53,8 +53,8 @@ export const RegistrationProvider = (props: PropsType) => {
         <RegistrationContext.Provider
           value={{
           tryRegistration,
-          registrationErrors,
-          clearRegistrationErrors,
+          registrationError,
+          clearRegistrationError,
           showRegistrationModal,
           setShowRegistrationModal}}>
           {props.children}

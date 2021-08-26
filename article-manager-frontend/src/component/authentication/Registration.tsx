@@ -30,16 +30,16 @@ const formItemLayout = {
 export default function Registration() {
     const [form] = Form.useForm();
     const {tryRegistration,
-        registrationErrors,clearRegistrationErrors,
+        registrationError,clearRegistrationError,
         showRegistrationModal, setShowRegistrationModal} = useContext(RegistrationContext);
 
     const handleClose = () => {
-        clearRegistrationErrors();
+        clearRegistrationError();
         setShowRegistrationModal(false)};
 
     const handleRegistration = (event: RegistrationDataType) => {
         tryRegistration(event);
-        if(Object.keys(registrationErrors).length === 0) {
+        if(registrationError === "") {
             handleClose();
         }
     }
@@ -48,11 +48,9 @@ export default function Registration() {
 
      const showRegistrationErrors = () => {
         return(
-        registrationErrors &&
+        registrationError &&
             <div className="registration error-container">
-                {Object.values(registrationErrors).map((element, index) => (
-                    <p key={index}>{element}</p>
-                ))}
+                {registrationError}
             </div>);
     }
 

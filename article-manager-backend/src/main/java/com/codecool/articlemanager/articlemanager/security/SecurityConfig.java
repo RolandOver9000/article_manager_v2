@@ -64,11 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(@Value("${frontend.url:http://localhost:3000}") String frontendUrl) {
+    public CorsConfigurationSource corsConfigurationSource(@Value("${frontend-url}") String frontendUrl) {
         final CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(frontendUrl));
 
-        configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
         configuration.setAllowCredentials(true);
 

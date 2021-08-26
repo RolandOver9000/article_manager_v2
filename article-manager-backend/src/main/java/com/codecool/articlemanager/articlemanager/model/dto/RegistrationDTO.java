@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class RegistrationDTO {
 
-    private String emailAddress;
+    private String email;
     private String username;
     private String password;
 

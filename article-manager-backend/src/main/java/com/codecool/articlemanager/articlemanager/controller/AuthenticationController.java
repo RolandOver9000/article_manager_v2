@@ -44,7 +44,7 @@ public class AuthenticationController {
         } catch (Exception e) {
             log.error("Error during registration.");
             throw new ResponseStatusException(
-                    HttpStatus.UNPROCESSABLE_ENTITY, "Error during registration.");
+                    HttpStatus.UNPROCESSABLE_ENTITY, "Wrong e-mail or username.");
         }
     }
 

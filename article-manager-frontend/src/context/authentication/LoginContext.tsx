@@ -25,7 +25,7 @@ export const LoginContext = createContext<LoginContextType>({} as LoginContextTy
 export const LoginProvider = (props: PropsType) => {
 
     const[loginErrors, setLoginErrors] = useState<Object>({});
-    const[cookies, setCookie] = useCookies([]);
+    const[cookies, _setCookie] = useCookies([]);
     const[showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
 
@@ -46,13 +46,11 @@ export const LoginProvider = (props: PropsType) => {
     }
 
     const login = (inputs: LoginDataType) => {
-        Axios.post(process.env.REACT_APP_API_BACKEND_URL + "/api/login", inputs, {
+        Axios.post(process.env.REACT_APP_API_BACKEND_URL + "/auth/login", inputs, {
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((resp) => {
-          setCookie('token', resp.data.user.token, { path: '/' , sameSite: "strict"});
-        }).then(() => {
+        }).then((_resp) => {
           window.location.reload();
         }).catch(function (error) {
           setLoginErrors(error.response.data.errors);
