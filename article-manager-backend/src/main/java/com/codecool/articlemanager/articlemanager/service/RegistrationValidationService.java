@@ -17,7 +17,7 @@ public class RegistrationValidationService {
     public boolean isRegistrationValid(RegistrationDTO registrationData) {
         //try to make 1 query that check these
         return isUsernameValid(registrationData.getUsername()) &&
-                isEmailValid(registrationData.getEmailAddress());
+                isEmailValid(registrationData.getEmail());
     }
 
     private boolean isUsernameValid(String username) {

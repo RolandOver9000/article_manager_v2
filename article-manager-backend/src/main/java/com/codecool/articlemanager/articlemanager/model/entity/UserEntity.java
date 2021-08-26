@@ -49,7 +49,7 @@ public class UserEntity {
     public static UserEntity transformDTO(RegistrationDTO registrationData) {
         return UserEntity.builder()
                 .username(registrationData.getUsername())
-                .email(registrationData.getEmailAddress())
+                .email(registrationData.getEmail())
                 .password(registrationData.getPassword())
                 .build();
     }
