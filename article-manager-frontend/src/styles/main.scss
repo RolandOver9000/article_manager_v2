@@ -1,0 +1,25 @@
+//Components
+@import "./components/error";
+@import "./components/header";
+@import "./components/article_modal";
+@import "./components//article_tag";
+@import "./components/user_data_card";
+@import "./components/edit_user_profile_modal";
+
+//Pages
+@import "./pages/authentication";
+@import "./pages/home";
+@import "./pages/articles";
+@import "./pages/user_manager";
+
+//Utils
+@import "./utils/variables";
+
+#root,
+.App {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}

@@ -1,0 +1,188 @@
+.error-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: red;
+}
+
+.header-container {
+  border-bottom: solid;
+  margin-bottom: 5px;
+}
+
+.navigation-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: solid 3px;
+  padding-bottom: 5px;
+}
+
+.navigation-buttons {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+Button {
+  margin: 0 10px;
+  width: 130px;
+}
+
+.article-container {
+  color: white;
+  border-radius: 5px;
+  background: black;
+  text-align: center;
+  display: table;
+  width: 10%;
+  min-height: 100px;
+  max-height: 30%;
+  margin: 10px;
+}
+
+.article-modal-trigger {
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.tag-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.tag-input input {
+  width: auto;
+}
+
+#add-tag-button {
+  margin-left: 5px;
+  font-size: 15px;
+}
+
+.profile-data-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.profile-data-container button {
+  width: auto;
+}
+
+.card-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card-img-top {
+  width: 286px;
+  height: 286px;
+}
+
+.edit-user-profile-modal-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.authentication,
+.authentication-menu {
+  height: 100%;
+}
+
+.authentication {
+  background-image: url("../shared/authentication-page-background.jpg");
+  background-size: cover;
+}
+
+.authentication-menu {
+  height: auto;
+  width: auto;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: block;
+  text-align: center;
+  border: 5px solid cornflowerblue;
+  border-radius: 25px;
+  padding: 80px;
+}
+
+.authentication-menu-element {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.home-page-container,
+.home-page {
+  height: 100%;
+}
+
+.home-page {
+  background-image: url("../shared/home.png");
+  background-size: cover;
+}
+
+.articles {
+  height: 100%;
+}
+
+.articles-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.article-form-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.all-users-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
+}
+
+.profile-data-container {
+  margin: 5px;
+}
+
+#root,
+.App {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+/*# sourceMappingURL=main.css.map */

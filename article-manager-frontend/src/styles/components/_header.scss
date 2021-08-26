@@ -1,0 +1,21 @@
+@import "../utils/mixins";
+
+.header-container {
+  border-bottom: solid;
+  margin-bottom: 5px;
+}
+
+.navigation-bar {
+  @include flexCenter;
+  border-bottom: solid 3px;
+  padding-bottom: 5px;
+}
+
+.navigation-buttons {
+  width: max-content;
+}
+
+Button {
+  margin: 0 10px;
+  width: 130px;
+}

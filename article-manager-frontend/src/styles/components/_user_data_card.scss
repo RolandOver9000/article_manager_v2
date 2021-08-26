@@ -1,0 +1,17 @@
+@import "../utils/mixins";
+
+.profile-data-container {
+  @include flexCenter;
+  button {
+    width: auto;
+  }
+}
+
+.card-footer {
+  @include flexCenter;
+}
+
+.card-img-top {
+  width: 286px;
+  height: 286px;
+}

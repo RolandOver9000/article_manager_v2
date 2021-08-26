@@ -1,0 +1,30 @@
+@import "../utils/mixins";
+
+.authentication,
+.authentication-menu {
+  height: 100%;
+}
+
+.authentication {
+  background-image: url("../shared/authentication-page-background.jpg");
+  background-size: cover;
+}
+
+.authentication-menu {
+  height: auto;
+  width: auto;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  display: block;
+  text-align: center;
+  border: 5px solid cornflowerblue;
+  border-radius: 25px;
+  padding: 80px;
+}
+
+.authentication-menu-element {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

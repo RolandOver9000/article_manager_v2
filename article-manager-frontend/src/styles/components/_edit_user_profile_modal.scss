@@ -1,0 +1,5 @@
+@import "../utils/mixins";
+
+.edit-user-profile-modal-container {
+  @include flexCenter;
+}
