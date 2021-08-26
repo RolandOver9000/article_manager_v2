@@ -4,10 +4,10 @@ import { Modal, Button } from "react-bootstrap";
 import { LoginContext } from "../../context/authentication/LoginContext";
 
 export default function Login() {
-    const {tryLogin, loginErrors, clearLoginErrors, showLoginModal, setShowLoginModal} = useContext(LoginContext);
+    const {tryLogin, loginError, clearLoginError, showLoginModal, setShowLoginModal} = useContext(LoginContext);
 
     const handleClose = () => {
-        clearLoginErrors();
+        clearLoginError();
         setShowLoginModal(false)};
 
     const handleShow = () => setShowLoginModal(true);
@@ -16,13 +16,11 @@ export default function Login() {
         console.log('Failed:', errorInfo);
     }
 
-    const showLoginErrors = () => {
+    const showLoginError = () => {
         return(
-        Object.keys(loginErrors).length !== 0 &&
+        loginError &&
             <div className="login error-container">
-                {Object.entries(loginErrors).map((error, index) => (
-                    <p key={index}>{error}</p>
-                ))}
+                    {loginError}
             </div>);
     }
 
@@ -68,7 +66,7 @@ export default function Login() {
                                 Login
                             </Button>
                         </Form.Item>
-                        {showLoginErrors()}
+                        {showLoginError()}
                         </Form>
                     </Modal.Body>
                 </Modal>

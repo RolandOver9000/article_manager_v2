@@ -1,6 +1,5 @@
 import Axios from "axios";
 import { createContext, PropsWithChildren, useState } from "react";
-import { useCookies } from "react-cookie";
 
 type PropsType = {
     children: PropsWithChildren<{}>
@@ -28,14 +27,13 @@ export const UserContext = createContext<UserContextType>({} as UserContextType)
 export const UserProvider = (props: PropsType) => {
     const [userData, setUserData] = useState<UserProfileDataType>({} as UserProfileDataType);
     const [allUsersData, setAllUsersData] = useState<UserProfileDataType[]>([{}] as UserProfileDataType[]);
-    const [cookies, _setCookie] = useCookies([]);
 
     const getLoggedInUserData = () => {
         Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/user", {
         headers: {
             "Content-Type": "application/json",
-            "Authorization" : `Bearer ${cookies.token}`
-        }
+        },
+        withCredentials: true
     }).then((resp) => {
         setUserData(resp.data.user);
     })
@@ -45,8 +43,8 @@ export const UserProvider = (props: PropsType) => {
         Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/api/user", updatedProfile, {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization" : `Bearer ${cookies.token}`
-            }
+            },
+            withCredentials: true
         }).then(() => {
             getLoggedInUserData();
             if(allUsersData.length !== 0) {
@@ -59,8 +57,8 @@ export const UserProvider = (props: PropsType) => {
         Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/users", {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization" : `Bearer ${cookies.token}`
-            }
+            },
+            withCredentials: true
         }).then((resp) => {
             setAllUsersData(resp.data);
         })
@@ -70,8 +68,8 @@ export const UserProvider = (props: PropsType) => {
         Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/api/users/" + email, {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization" : `Bearer ${cookies.token}`
-            }
+            },
+            withCredentials: true
         }).then(() => {
             getAllUsersData();
         })

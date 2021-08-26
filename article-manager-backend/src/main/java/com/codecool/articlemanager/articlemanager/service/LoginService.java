@@ -38,15 +38,15 @@ public class LoginService {
     }
 
     private void logTryAuthentication(LoginDTO loginDTO) {
-        log.info("Try to authenticate with login username: " +
-                loginDTO.getUsername() + " login password: " +
+        log.info("Try to authenticate with email: " +
+                loginDTO.getEmail() + " and password: " +
                 loginDTO.getPassword());
     }
 
     private Authentication tryAuthenticate(LoginDTO loginDTO) {
         logTryAuthentication(loginDTO);
         return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
         );
     }
 
@@ -58,7 +58,7 @@ public class LoginService {
     private String login(Authentication authentication, HttpServletResponse response) {
         List<String> roles = getRolesFrom(authentication);
         String username = authentication.getName();
-        //try to collect only the id of the user
+        //try to collect only the id of the user, because that is the primary key in the table
         UserEntity foundUser = userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
