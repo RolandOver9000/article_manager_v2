@@ -5,7 +5,6 @@ import Authentication from './component/authentication/Authentication';
 import Articles from './component/article/Articles';
 import Home from './component/home/Home';
 import UserProfile from './component/user_profile/UserProfile';
-import { CookiesProvider } from 'react-cookie';
 import { ArticleProvider } from './context/article/ArticleContext';
 import { LoginProvider } from './context/authentication/LoginContext';
 import PrivateRoute from './component/util/PrivateRoute';
@@ -17,28 +16,26 @@ import { LogoutProvider } from './context/authentication/LogoutContext';
 function App() {
   return (
     <Router>
-      <CookiesProvider>
-        <LoginProvider>
-          <LogoutProvider>
-            <div className="App">
+      <LoginProvider>
+        <LogoutProvider>
+          <div className="App">
 
-                <PrivateRoute exact path={"/"} component={Home} />
+              <PrivateRoute exact path={"/"} component={Home} />
 
-                <UserProvider>
-                  <PrivateRoute exact path={"/profile"} component={UserProfile} />
-                  <PrivateRoute exact path={"/user-manager"} component={UserManager} />
-                </UserProvider>
+              <UserProvider>
+                <PrivateRoute exact path={"/profile"} component={UserProfile} />
+                <PrivateRoute exact path={"/user-manager"} component={UserManager} />
+              </UserProvider>
 
-                <Route exact path={"/authentication"} component={Authentication} />
+              <Route exact path={"/authentication"} component={Authentication} />
 
-                <ArticleProvider>
-                    <PrivateRoute exact path={"/articles"} component={Articles}/>
-                </ArticleProvider>
+              <ArticleProvider>
+                  <PrivateRoute exact path={"/articles"} component={Articles}/>
+              </ArticleProvider>
 
-            </div>
-          </LogoutProvider>
-        </LoginProvider>
-      </CookiesProvider>
+          </div>
+        </LogoutProvider>
+      </LoginProvider>
     </Router>
   );
 }

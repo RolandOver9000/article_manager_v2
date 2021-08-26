@@ -1,6 +1,5 @@
 import { createContext, PropsWithChildren, useState } from "react";
 import Axios from "axios";
-import { useCookies } from 'react-cookie';
 
 type PropsType = {
     children: PropsWithChildren<{}>
@@ -13,8 +12,8 @@ export type LoginDataType = {
 
 export interface LoginContextType {
     tryLogin: (inputs: LoginDataType) => void;
-    loginErrors: Object;
-    clearLoginErrors: () => void;
+    loginError: String;
+    clearLoginError: () => void;
     isLoggedIn: () => boolean;
     showLoginModal: boolean;
     setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,24 +23,21 @@ export const LoginContext = createContext<LoginContextType>({} as LoginContextTy
 
 export const LoginProvider = (props: PropsType) => {
 
-    const[loginErrors, setLoginErrors] = useState<Object>({});
-    const[cookies, _setCookie] = useCookies([]);
+    const[loginError, setLoginError] = useState<String>("");
     const[showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
 
     const isLoggedIn = () => {
-      if(cookies.token !== undefined) {
-        return true;
-      }
+      //need an axios call for checking if user is logged in
       return false;
     }
 
-    const clearLoginErrors = () => {
-      setLoginErrors({});
+    const clearLoginError = () => {
+      setLoginError("");
     }
 
     const tryLogin = (inputs: LoginDataType) => {
-      clearLoginErrors();
+      clearLoginError();
       login(inputs);
     }
 
@@ -50,10 +46,11 @@ export const LoginProvider = (props: PropsType) => {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true
         }).then((_resp) => {
           window.location.reload();
         }).catch(function (error) {
-          setLoginErrors(error.response.data.errors);
+          setLoginError(error.response.data.message);
         });
       };
 
@@ -61,8 +58,8 @@ export const LoginProvider = (props: PropsType) => {
         <LoginContext.Provider
           value={{
             tryLogin,
-            loginErrors,
-            clearLoginErrors,
+            loginError,
+            clearLoginError,
             isLoggedIn,
             showLoginModal,
             setShowLoginModal}}>
