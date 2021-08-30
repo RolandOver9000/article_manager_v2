@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { LoginContext } from "../../context/authentication/LoginContext";
 
@@ -9,11 +9,16 @@ interface PropsType {
 }
 
 export default function PrivateRoute({ component: Component, ...rest }: PropsType) {
-  const { isLoggedIn } = useContext(LoginContext);
+  const { checkIfLoggedIn, isLoggedIn } = useContext(LoginContext);
+
+  useEffect(() => {
+    console.log("useeffect")
+    checkIfLoggedIn()
+  }, [isLoggedIn])
 
   return (
     <Route {...rest} render={props => (
-      isLoggedIn() ?
+      isLoggedIn ?
           <Component {...props} />
       : <Redirect to="/authentication" />
   )} />
