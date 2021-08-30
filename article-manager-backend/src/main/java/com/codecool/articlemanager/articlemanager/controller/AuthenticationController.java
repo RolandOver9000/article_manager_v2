@@ -37,6 +37,19 @@ public class AuthenticationController {
         }
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@CookieValue(value="JWT" ,required=true) String jwt) {
+        log.info("Logout request received.");
+        try {
+            log.info("User is logging out.");
+            logoutService.logout(jwt);
+        } catch (Exception e) {
+            log.error("Error during logging out.");
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Error during logging out.");
+        }
+    }
+
     @GetMapping("/is-logged-in")
     public ResponseEntity<Boolean> isLoggedIn(@CookieValue(value="JWT" ,required=false) String jwt) {
         log.info("Check if user logged in with token: " + jwt);
