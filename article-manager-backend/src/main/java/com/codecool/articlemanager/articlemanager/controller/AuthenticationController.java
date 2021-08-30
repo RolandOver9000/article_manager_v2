@@ -4,6 +4,7 @@ import com.codecool.articlemanager.articlemanager.model.dto.LoginDTO;
 import com.codecool.articlemanager.articlemanager.model.dto.RegistrationDTO;
 import com.codecool.articlemanager.articlemanager.security.service.JwtService;
 import com.codecool.articlemanager.articlemanager.service.LoginService;
+import com.codecool.articlemanager.articlemanager.service.LogoutService;
 import com.codecool.articlemanager.articlemanager.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class AuthenticationController {
 
     private final LoginService loginService;
     private final RegistrationService registrationService;
+    private final LogoutService logoutService;
     private final JwtService jwtService;
 
     @PostMapping("/login")
@@ -38,11 +40,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@CookieValue(value="JWT" ,required=true) String jwt) {
+    public ResponseEntity<String> logout(HttpServletResponse httpResponse) {
         log.info("Logout request received.");
         try {
             log.info("User is logging out.");
-            logoutService.logout(jwt);
+            logoutService.logout(httpResponse);
+            return ResponseEntity.ok("User successfully logged out.");
         } catch (Exception e) {
             log.error("Error during logging out.");
             throw new ResponseStatusException(
