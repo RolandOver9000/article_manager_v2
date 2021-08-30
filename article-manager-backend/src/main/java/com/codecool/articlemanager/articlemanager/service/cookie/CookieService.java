@@ -24,10 +24,8 @@ public class CookieService {
                 .build();
     }
 
-    public void invalidateTokenCookie(HttpServletResponse response) {
-        log.info("Invalidating JWT cookie.");
-        ResponseCookie cookie = createTokenCookie("", Duration.ZERO);
-        response.addHeader("Set-Cookie", cookie.toString());
+    public ResponseCookie createInvalidTokenCookie() {
+        return createTokenCookie("", Duration.ZERO);
     }
 
 }
