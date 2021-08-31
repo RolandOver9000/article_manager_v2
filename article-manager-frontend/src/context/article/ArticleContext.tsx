@@ -38,7 +38,11 @@ export const ArticleProvider = (props: PropsType) => {
             },
             withCredentials: true
         }).then((resp) => {
-            setArticles((prevArticles) => [resp.data, ...prevArticles]);
+            if(articles === undefined){
+                setArticles([resp.data])
+            } else {
+                setArticles((prevArticles) => [...prevArticles, newArticle]);
+            }
             setNewArticle({} as ArticleDataType);
         })
     }
@@ -74,7 +78,7 @@ export const ArticleProvider = (props: PropsType) => {
             },
             withCredentials: true
         }).then((resp) => {
-            setArticles(resp.data.articles);
+            setArticles(resp.data);
         })
     }
 

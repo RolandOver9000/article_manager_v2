@@ -28,7 +28,7 @@ export default function Article() {
     }, [])
 
     const handleArticles = () => {
-        if(articles){
+        if(articles !== undefined){
             return articles.map((article, index) => (
                     <ArticleModal
                     article={article}
