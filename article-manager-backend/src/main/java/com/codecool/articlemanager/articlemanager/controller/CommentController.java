@@ -1,6 +1,6 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
-import com.codecool.articlemanager.articlemanager.model.dto.IncomingComment;
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingCommentDTO;
 import com.codecool.articlemanager.articlemanager.model.entity.CommentEntity;
 import com.codecool.articlemanager.articlemanager.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class CommentController {
 
     @PostMapping("/{id}/comments")
     public ResponseEntity<String> saveCommentForArticle(@PathVariable(value="id") Long id,
-                                                        @RequestBody IncomingComment comment) {
+                                                        @RequestBody IncomingCommentDTO comment) {
         log.info("Received post request for saving comment. ArticleId: " + id.toString());
         try {
             commentService.saveCommentByArticleId(id, comment);

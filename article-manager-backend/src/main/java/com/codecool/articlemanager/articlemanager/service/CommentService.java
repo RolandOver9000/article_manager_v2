@@ -1,6 +1,6 @@
 package com.codecool.articlemanager.articlemanager.service;
 
-import com.codecool.articlemanager.articlemanager.model.dto.IncomingComment;
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingCommentDTO;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.model.entity.CommentEntity;
 import com.codecool.articlemanager.articlemanager.repository.CommentRepository;
@@ -19,7 +19,7 @@ public class CommentService {
         return commentRepository.findAllByArticleId(id);
     }
 
-    public void saveCommentByArticleId(Long articleId, IncomingComment comment) {
+    public void saveCommentByArticleId(Long articleId, IncomingCommentDTO comment) {
         ArticleEntity articleEntity = articleService.getArticleById(articleId);
         CommentEntity commentEntity = CommentEntity.builder()
                 .article(articleEntity)
