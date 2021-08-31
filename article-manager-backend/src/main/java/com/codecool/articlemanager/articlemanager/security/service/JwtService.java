@@ -62,7 +62,7 @@ public class JwtService {
     }
 
     public boolean validateToken(String token) {
-        System.out.println("Validating token: " + token);
+        log.info("Validation token: " + token);
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return claims.getBody().getExpiration().after(new Date());
@@ -84,6 +84,18 @@ public class JwtService {
     }
 
     private Claims parseTokenBody(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public Long getUserIdFromToken(String token) {
+        String userId = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .get(userIdFieldName, String.class);
+        return Long.valueOf(userId);
     }
 }
