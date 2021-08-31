@@ -40,7 +40,7 @@ export const LoginProvider = (props: PropsType) => {
         setIsLoggedIn(resp.data);
       })
         .catch((error) => {
-          console.log(error.response.data.message);
+          console.log(error);
           setIsLoggedIn(false);
         });
     };

@@ -12,7 +12,6 @@ export default function PrivateRoute({ component: Component, ...rest }: PropsTyp
   const { checkIfLoggedIn, isLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
-    console.log("useeffect")
     checkIfLoggedIn()
   }, [isLoggedIn])
 
