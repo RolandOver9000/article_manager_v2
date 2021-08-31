@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class ArticleController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Long> saveArticle(@RequestBody ArticleEntity newArticle) {
+    public ResponseEntity<Long> saveArticle(@RequestBody IncomingArticleDTO newArticle) {
         log.info("Received post request for saving article.");
         try {
             return ResponseEntity.ok(articleService.saveArticle(newArticle));
