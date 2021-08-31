@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.model.entity;
 
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,5 +46,15 @@ public class ArticleEntity {
     @PrePersist
     private void updateTimestamp() {
         this.updateDateTime = new Date();
+    }
+
+    public static ArticleEntity transformIncomingDTO(IncomingArticleDTO articleDTO, List<TagEntity> tags) {
+        return ArticleEntity.builder()
+                .author(articleDTO.getAuthor())
+                .title(articleDTO.getTitle())
+                .body(articleDTO.getBody())
+                .description(articleDTO.getDescription())
+                .tagList(tags)
+                .build();
     }
 }
