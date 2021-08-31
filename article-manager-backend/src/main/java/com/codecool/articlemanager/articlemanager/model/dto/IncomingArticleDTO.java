@@ -9,7 +9,6 @@ import java.util.List;
 public class IncomingArticleDTO {
 
     private Long id;
-    private UserEntity author;
     private String title;
     private String description;
     private String body;
