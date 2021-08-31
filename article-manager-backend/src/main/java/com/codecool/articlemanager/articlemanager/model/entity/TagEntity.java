@@ -7,10 +7,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,6 +20,7 @@ public class TagEntity {
     @GeneratedValue
     private Long id;
 
+    @Column(unique=true)
     private String tag;
 
     @JsonIgnore
