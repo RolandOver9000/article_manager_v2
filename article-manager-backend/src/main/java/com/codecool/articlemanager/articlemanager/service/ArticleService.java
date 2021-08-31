@@ -1,6 +1,8 @@
 package com.codecool.articlemanager.articlemanager.service;
 
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
+import com.codecool.articlemanager.articlemanager.model.entity.TagEntity;
 import com.codecool.articlemanager.articlemanager.repository.ArticleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,16 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final TagService tagService;
 
     public List<ArticleEntity> getAllArticles() {
         return articleRepository.findAll();
     }
 
-    public Long saveArticle(ArticleEntity newArticle) {
-        ArticleEntity savedArticle = articleRepository.save(newArticle);
+    public Long saveArticle(IncomingArticleDTO newArticle) {
+        List<TagEntity> tags = tagService.saveMultipleStringTags(newArticle.getTagList());
+        ArticleEntity transformedArticleDTO = ArticleEntity.transformIncomingDTO(newArticle, tags);
+        ArticleEntity savedArticle = articleRepository.save(transformedArticleDTO);
         return savedArticle.getId();
     }
 
