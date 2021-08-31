@@ -26,7 +26,7 @@ export default function AticleModal(props: PropsType) {
     }
 
     const handleArticleUpdate = (updatedArticle: ArticleDataType) => {
-        updatedArticle.slug = props.article.slug;
+        updatedArticle.id = props.article.id;
         updateArticle(updatedArticle);
         handleClose();
     }

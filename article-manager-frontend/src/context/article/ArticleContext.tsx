@@ -7,10 +7,10 @@ type PropsType = {
 }
 
 export type ArticleDataType = {
+    id: number;
     title: string;
     description: string;
     body: string;
-    slug: string;
     tagList: string[];
 }
 
@@ -44,7 +44,7 @@ export const ArticleProvider = (props: PropsType) => {
     }
 
     const updateArticle = (updatedArticle: ArticleDataType) => {
-        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + updatedArticle.slug,
+        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + updatedArticle.id,
         updatedArticle, {
             headers: {
                 "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export const ArticleProvider = (props: PropsType) => {
     }
 
     const deleteArticle = (removableArticle: ArticleDataType) => {
-        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + removableArticle.slug, {
+        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + removableArticle.id, {
             headers: {
                 "Content-Type": "application/json",
             },
