@@ -46,10 +46,11 @@ public class ArticleController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Long> saveArticle(@RequestBody IncomingArticleDTO newArticle) {
+    public ResponseEntity<Long> saveArticle(@RequestBody IncomingArticleDTO newArticle,
+                                            @CookieValue(value="JWT" ,required=false) String jwt) {
         log.info("Received post request for saving article.");
         try {
-            return ResponseEntity.ok(articleService.saveArticle(newArticle));
+            return ResponseEntity.ok(articleService.saveArticle(newArticle, jwt));
         } catch (Exception e) {
             log.error("Error during saving article.");
             throw new ResponseStatusException(
