@@ -48,9 +48,11 @@ public class ArticleEntity {
         this.updateDateTime = new Date();
     }
 
-    public static ArticleEntity transformIncomingDTO(IncomingArticleDTO articleDTO, List<TagEntity> tags) {
+    public static ArticleEntity transformIncomingDTO(IncomingArticleDTO articleDTO,
+                                                     List<TagEntity> tags,
+                                                     UserEntity author) {
         return ArticleEntity.builder()
-                .author(articleDTO.getAuthor())
+                .author(author)
                 .title(articleDTO.getTitle())
                 .body(articleDTO.getBody())
                 .description(articleDTO.getDescription())
