@@ -7,7 +7,7 @@ type PropsType = {
 }
 
 export type ArticleDataType = {
-    id: number;
+    id: string;
     title: string;
     description: string;
     body: string;
@@ -38,8 +38,9 @@ export const ArticleProvider = (props: PropsType) => {
             },
             withCredentials: true
         }).then((resp) => {
+            newArticle.id = resp.data;
             if(articles === undefined){
-                setArticles([resp.data])
+                setArticles([newArticle])
             } else {
                 setArticles((prevArticles) => [...prevArticles, newArticle]);
             }
@@ -61,6 +62,7 @@ export const ArticleProvider = (props: PropsType) => {
     }
 
     const deleteArticle = (removableArticle: ArticleDataType) => {
+        console.log(removableArticle)
         Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + removableArticle.id, {
             headers: {
                 "Content-Type": "application/json",
