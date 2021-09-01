@@ -58,11 +58,13 @@ public class ArticleController {
         }
     }
 
-    @PutMapping("")
-    public ResponseEntity<Long> updateArticle(@RequestBody ArticleEntity updatedArticle) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> updateArticle(@RequestBody IncomingArticleDTO updatedArticle,
+                                              @PathVariable(value="id") Long id) {
         log.info("Received update request for updating article.");
         try {
-            return ResponseEntity.ok(articleService.updateArticleById(updatedArticle));
+            System.out.println(updatedArticle);
+            return ResponseEntity.ok(articleService.updateArticleById(id, updatedArticle));
         } catch (Exception e) {
             log.error("Error during updating article.");
             throw new ResponseStatusException(
