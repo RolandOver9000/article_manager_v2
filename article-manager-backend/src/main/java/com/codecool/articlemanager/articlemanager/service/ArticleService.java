@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -40,9 +41,22 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("Article not found by id: " + id));
     }
 
-    public Long updateArticleById(ArticleEntity updatedArticle) {
-        ArticleEntity articleEntity = articleRepository.save(updatedArticle);
-        return articleEntity.getId();
+    private ArticleEntity updateEntityByDto(ArticleEntity articleEntity, IncomingArticleDTO articleDTO) {
+        if(articleDTO.getTagList() == null) {
+            articleDTO.setTagList(new ArrayList<>());
+        }
+        articleEntity.setBody(articleDTO.getBody());
+        articleEntity.setDescription(articleDTO.getDescription());
+        articleEntity.setTagList(tagService.saveMultipleStringTags(articleDTO.getTagList()));
+        articleEntity.setTitle(articleDTO.getTitle());
+        return articleEntity;
+    }
+
+    public Long updateArticleById(Long articleId, IncomingArticleDTO updatedArticle) {
+        ArticleEntity articleEntity = getArticleById(articleId);
+        ArticleEntity updatedEntity = updateEntityByDto(articleEntity, updatedArticle);
+        articleRepository.save(updatedEntity);
+        return updatedEntity.getId();
     }
 
     public void deleteArticle(Long id) {
