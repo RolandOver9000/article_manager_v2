@@ -10,7 +10,7 @@ type PropsType = {
 
 export default function AticleModal(props: PropsType) {
     const [showModal, setShowModal] = useState(false);
-    const {deleteArticle, updateArticle, setNewArticle} = useContext(ArticleContext);
+    const {deleteArticle, updateArticle, newArticle, setNewArticle} = useContext(ArticleContext);
 
     const handleShow = () => {
         setNewArticle(props.article);
@@ -27,7 +27,7 @@ export default function AticleModal(props: PropsType) {
 
     const handleArticleUpdate = (updatedArticle: ArticleDataType) => {
         updatedArticle.id = "" + props.article.id;
-        console.log(updatedArticle)
+        updatedArticle.tagList = newArticle.tagList;
         updateArticle(updatedArticle);
         handleClose();
     }
