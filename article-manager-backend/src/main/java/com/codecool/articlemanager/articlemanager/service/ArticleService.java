@@ -1,6 +1,7 @@
 package com.codecool.articlemanager.articlemanager.service;
 
 import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
+import com.codecool.articlemanager.articlemanager.model.dto.OutgoingArticleDTO;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.model.entity.TagEntity;
 import com.codecool.articlemanager.articlemanager.model.entity.UserEntity;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -22,8 +24,11 @@ public class ArticleService {
     private final JwtService jwtService;
     private final UserService userService;
 
-    public List<ArticleEntity> getAllArticles() {
-        return articleRepository.findAll();
+    public List<OutgoingArticleDTO> getAllArticles() {
+        List<ArticleEntity> articleEntities = articleRepository.findAll();
+        return articleEntities.stream()
+                .map(OutgoingArticleDTO::transformArticleEntity)
+                .collect(Collectors.toList());
     }
 
     public Long saveArticle(IncomingArticleDTO newArticle, String jwtToken) {
@@ -39,6 +44,13 @@ public class ArticleService {
         return articleRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Article not found by id: " + id));
+    }
+
+    public OutgoingArticleDTO getOutgoingArticleById(Long id) {
+        ArticleEntity foundArticle = articleRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Article not found by id: " + id));
+        return OutgoingArticleDTO.transformArticleEntity(foundArticle);
     }
 
     private ArticleEntity updateEntityByDto(ArticleEntity articleEntity, IncomingArticleDTO articleDTO) {

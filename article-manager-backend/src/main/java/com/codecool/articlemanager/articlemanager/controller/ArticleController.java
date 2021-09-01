@@ -1,6 +1,7 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
 import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
+import com.codecool.articlemanager.articlemanager.model.dto.OutgoingArticleDTO;
 import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("")
-    public ResponseEntity<List<ArticleEntity>> getAllArticles() {
+    public ResponseEntity<List<OutgoingArticleDTO>> getAllArticles() {
         log.info("Received get request for getting all articles.");
         try {
             return ResponseEntity.ok(articleService.getAllArticles());
@@ -34,10 +35,10 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleEntity> getArticleById(@PathVariable(value="id") Long id) {
+    public ResponseEntity<OutgoingArticleDTO> getArticleById(@PathVariable(value="id") Long id) {
         log.info("Received get request for getting article by id: " + id.toString());
         try {
-            return ResponseEntity.ok(articleService.getArticleById(id));
+            return ResponseEntity.ok(articleService.getOutgoingArticleById(id));
         } catch (Exception e) {
             log.error("Error during getting article by id: " + id.toString());
             throw new ResponseStatusException(
