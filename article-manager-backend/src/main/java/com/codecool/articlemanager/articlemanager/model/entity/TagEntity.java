@@ -1,12 +1,8 @@
 package com.codecool.articlemanager.articlemanager.model.entity;
 
-import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.Nullable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Data
 public class TagEntity {
 
     @Id
