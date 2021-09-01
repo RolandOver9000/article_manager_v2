@@ -18,6 +18,7 @@ import java.util.List;
 public class TagEntity {
 
     @Id
+    @JsonIgnore
     @GeneratedValue
     private Long id;
 
@@ -27,6 +28,6 @@ public class TagEntity {
 
     @JsonIgnore
     @ToString.Exclude
-    @ManyToMany(mappedBy = "tagList")
-    private List<ArticleEntity> articleEntity;
+    @ManyToMany
+    private List<ArticleEntity> articleEntities;
 }

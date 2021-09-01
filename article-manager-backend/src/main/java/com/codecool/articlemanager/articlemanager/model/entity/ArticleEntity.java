@@ -30,7 +30,7 @@ public class ArticleEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDateTime;
 
-    @ManyToMany()
+    @ManyToMany(mappedBy = "articleEntities")
     private List<TagEntity> tagList;
 
     @ManyToOne(cascade = {CascadeType.REMOVE})
