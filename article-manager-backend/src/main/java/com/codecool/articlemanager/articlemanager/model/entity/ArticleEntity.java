@@ -30,7 +30,7 @@ public class ArticleEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDateTime;
 
-    @ManyToMany(mappedBy = "articleEntities")
+    @ManyToMany
     private List<TagEntity> tagList;
 
     @ManyToOne(cascade = {CascadeType.REMOVE})
@@ -59,4 +59,5 @@ public class ArticleEntity {
                 .tagList(tags)
                 .build();
     }
+
 }
