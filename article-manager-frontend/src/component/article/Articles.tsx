@@ -29,10 +29,10 @@ export default function Article() {
 
     const handleArticles = () => {
         if(articles !== undefined){
-            return articles.map((article, index) => (
+            return articles.map((article) => (
                     <ArticleModal
                     article={article}
-                    key={index}/>
+                    key={article.id}/>
                     ))
         } else {
             return <p>Still no articles.</p>
