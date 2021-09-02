@@ -1,6 +1,6 @@
 package com.codecool.articlemanager.articlemanager.controller;
 
-import com.codecool.articlemanager.articlemanager.model.dto.OutgoingUserDTO;
+import com.codecool.articlemanager.articlemanager.model.dto.UserDTO;
 import com.codecool.articlemanager.articlemanager.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +18,24 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("")
-    public ResponseEntity<OutgoingUserDTO> getUserDetails(@CookieValue(value="JWT") String jwt) {
+    @GetMapping("/logged-in")
+    public ResponseEntity<UserDTO> getUserDetails(@CookieValue(value="JWT") String jwt) {
         try{
             return ResponseEntity.ok(userService.getUserDetailsByJwtToken(jwt));
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting user details.");
+        }
+    }
+
+    @PutMapping("")
+    public ResponseEntity<String> updateUserDetails(@RequestBody UserDTO userDTO) {
+        try{
+            userService.updateUserDetailsById(userDTO);
+            return ResponseEntity.ok("User successfully updated.");
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during updating user details.");
         }
     }
 }
