@@ -29,7 +29,7 @@ export const UserProvider = (props: PropsType) => {
     const [allUsersData, setAllUsersData] = useState<UserProfileDataType[]>([{}] as UserProfileDataType[]);
 
     const getLoggedInUserData = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/user", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/user/logged-in", {
         headers: {
             "Content-Type": "application/json",
         },
