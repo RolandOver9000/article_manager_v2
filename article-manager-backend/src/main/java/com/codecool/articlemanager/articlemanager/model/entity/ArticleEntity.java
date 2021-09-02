@@ -33,11 +33,11 @@ public class ArticleEntity {
     @ManyToMany
     private List<TagEntity> tagList;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @ManyToOne
     private UserEntity author;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private List<CommentEntity> comments;
 
