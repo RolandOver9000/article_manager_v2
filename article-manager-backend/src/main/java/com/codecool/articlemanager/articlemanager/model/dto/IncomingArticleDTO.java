@@ -1,6 +1,5 @@
 package com.codecool.articlemanager.articlemanager.model.dto;
 
-import com.codecool.articlemanager.articlemanager.model.entity.UserEntity;
 import lombok.Data;
 
 import java.util.List;
