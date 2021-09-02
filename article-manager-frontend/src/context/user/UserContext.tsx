@@ -29,18 +29,18 @@ export const UserProvider = (props: PropsType) => {
     const [allUsersData, setAllUsersData] = useState<UserProfileDataType[]>([{}] as UserProfileDataType[]);
 
     const getLoggedInUserData = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/user", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/user", {
         headers: {
             "Content-Type": "application/json",
         },
         withCredentials: true
     }).then((resp) => {
-        setUserData(resp.data.user);
+        setUserData(resp.data);
     })
     }
 
     const updateUserProfile = (updatedProfile: UserProfileDataType) => {
-        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/api/user", updatedProfile, {
+        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/user", updatedProfile, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -54,7 +54,7 @@ export const UserProvider = (props: PropsType) => {
     }
 
     const getAllUsersData = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/users", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/users", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -65,7 +65,7 @@ export const UserProvider = (props: PropsType) => {
     }
 
     const deleteUserByEamil = (email: string) => {
-        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/api/users/" + email, {
+        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/users/" + email, {
             headers: {
                 "Content-Type": "application/json",
             },
