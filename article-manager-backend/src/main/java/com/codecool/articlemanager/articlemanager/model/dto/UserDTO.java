@@ -6,19 +6,19 @@ import lombok.Data;
 
 @Data
 @Builder
-public class OutgoingUserDTO {
+public class UserDTO {
     private String bio;
     private String email;
     private Long id;
-    private String imageUrl;
+    private String image;
     private String username;
 
-    public static OutgoingUserDTO transformUserEntity(UserEntity userEntity) {
-        return OutgoingUserDTO.builder()
+    public static UserDTO transformUserEntity(UserEntity userEntity) {
+        return UserDTO.builder()
                 .bio(userEntity.getBio())
                 .email(userEntity.getEmail())
                 .id(userEntity.getId())
-                .imageUrl(userEntity.getImage())
+                .image(userEntity.getImage())
                 .username(userEntity.getUsername())
                 .build();
     }
