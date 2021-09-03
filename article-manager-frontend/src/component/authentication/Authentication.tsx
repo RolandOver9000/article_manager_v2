@@ -8,7 +8,7 @@ import { Redirect } from "react-router";
 export default function Authentication() {
     const {isLoggedIn} = useContext(LoginContext);
 
-    if(isLoggedIn()) {
+    if(isLoggedIn) {
         return(
         <Redirect to="/" />);
     }

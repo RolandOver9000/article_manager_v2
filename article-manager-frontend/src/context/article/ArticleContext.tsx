@@ -7,10 +7,10 @@ type PropsType = {
 }
 
 export type ArticleDataType = {
+    id: string;
     title: string;
     description: string;
     body: string;
-    slug: string;
     tagList: string[];
 }
 
@@ -32,19 +32,24 @@ export const ArticleProvider = (props: PropsType) => {
 
 
     const saveArticle = (newArticle: ArticleDataType) => {
-        Axios.post(process.env.REACT_APP_API_BACKEND_URL + "/api/articles", newArticle, {
+        Axios.post(process.env.REACT_APP_API_BACKEND_URL + "/articles", newArticle, {
             headers: {
                 "Content-Type": "application/json",
             },
             withCredentials: true
         }).then((resp) => {
-            setArticles((prevArticles) => [resp.data, ...prevArticles]);
+            newArticle.id = resp.data;
+            if(articles === undefined){
+                setArticles([newArticle])
+            } else {
+                setArticles((prevArticles) => [...prevArticles, newArticle]);
+            }
             setNewArticle({} as ArticleDataType);
         })
     }
 
     const updateArticle = (updatedArticle: ArticleDataType) => {
-        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/api/articles/" + updatedArticle.slug,
+        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + updatedArticle.id,
         updatedArticle, {
             headers: {
                 "Content-Type": "application/json",
@@ -57,7 +62,8 @@ export const ArticleProvider = (props: PropsType) => {
     }
 
     const deleteArticle = (removableArticle: ArticleDataType) => {
-        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/api/articles/" + removableArticle.slug, {
+        console.log(removableArticle)
+        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/articles/" + removableArticle.id, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -68,13 +74,13 @@ export const ArticleProvider = (props: PropsType) => {
     }
 
     const getArticles = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/articles", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/articles", {
             headers: {
                 "Content-Type": "application/json",
             },
             withCredentials: true
         }).then((resp) => {
-            setArticles(resp.data.articles);
+            setArticles(resp.data);
         })
     }
 

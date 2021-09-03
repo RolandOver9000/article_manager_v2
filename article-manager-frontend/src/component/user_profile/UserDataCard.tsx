@@ -8,7 +8,7 @@ type PropsType = {
 }
 
 export default function UserDataCard(props: PropsType) {
-    const {userData, getLoggedInUserData, deleteUserByEamil} = useContext(UserContext);
+    const {userData, getLoggedInUserData, deleteUserById} = useContext(UserContext);
 
     const getUserProfileModifierButton = () => {
         if(userData.id === props.userProfileData.id) {
@@ -16,19 +16,17 @@ export default function UserDataCard(props: PropsType) {
         } else {
             return(
                 <Button onClick={() => (
-                    deleteUserByEamil(props.userProfileData.email))}>
+                    deleteUserById(props.userProfileData.id.toString()))}>
                     Delete user profile
                 </Button>
             )
         }
     }
 
-    useEffect(() => {
-        getLoggedInUserData();
-    }, [])
-
     const checkIfPictureValid = () => {
-        if(props.userProfileData.image !== "" && props.userProfileData.image !== undefined) {
+        if(props.userProfileData !== undefined &&
+            props.userProfileData.image !== "" &&
+            props.userProfileData.image !== undefined) {
             return(
             <Card.Img variant="top" src={props.userProfileData.image} />
             );
@@ -38,20 +36,36 @@ export default function UserDataCard(props: PropsType) {
             );
         }
     }
+
+    useEffect(() => {
+        getLoggedInUserData();
+    }, [])
+
     return(
         <div className="profile-data-container">
-            <Card style={{ width: '18rem' }}>
-                {checkIfPictureValid()}
-                <Card.Body>
-                    <p className="profile-data">Username: {props.userProfileData.username}</p>
-                    <p className="profile-data">Id: {props.userProfileData.id}</p>
-                    <p className="profile-data">Email: {props.userProfileData.email}</p>
-                    <p className="profile-data">Bio: {props.userProfileData.bio}</p>
-                </Card.Body>
-                <Card.Footer>
-                    {getUserProfileModifierButton()}
-                </Card.Footer>
-            </Card>
+                {(props.userProfileData !== undefined) ?
+                    <Card style={{ width: '18rem' }}>
+                        {checkIfPictureValid()}
+                        <Card.Body>
+                            <p className="profile-data">Username: {props.userProfileData.username}</p>
+                            <p className="profile-data">Id: {props.userProfileData.id}</p>
+                            <p className="profile-data">Email: {props.userProfileData.email}</p>
+                            <p className="profile-data">Bio: {props.userProfileData.bio}</p>
+                        </Card.Body>
+                        <Card.Footer>
+                            {getUserProfileModifierButton()}
+                        </Card.Footer>
+                    </Card>
+                :
+                    <Card style={{ width: '18rem' }}>
+                        {checkIfPictureValid()}
+                        <Card.Body>
+                            <p className="profile-data">Username:</p>
+                            <p className="profile-data">Id:</p>
+                            <p className="profile-data">Email:</p>
+                            <p className="profile-data">Bio:</p>
+                        </Card.Body>
+                    </Card>}
         </div>
     );
 }

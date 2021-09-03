@@ -27,6 +27,18 @@ export default function Article() {
         getArticles();
     }, [])
 
+    const handleArticles = () => {
+        if(articles !== undefined){
+            return articles.map((article) => (
+                    <ArticleModal
+                    article={article}
+                    key={article.id}/>
+                    ))
+        } else {
+            return <p>Still no articles.</p>
+            }
+    }
+
     return(
         <div className="articles">
             <Header />
@@ -89,11 +101,7 @@ export default function Article() {
                 </Modal>
             </div>
             <div className="articles-container">
-            {articles.map((article, index) => (
-                    <ArticleModal
-                    article={article}
-                    key={index}/>
-                ))}
+                {handleArticles()}
             </div>
         </div>
     );

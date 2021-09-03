@@ -14,7 +14,8 @@ export interface LoginContextType {
     tryLogin: (inputs: LoginDataType) => void;
     loginError: String;
     clearLoginError: () => void;
-    isLoggedIn: () => boolean;
+    checkIfLoggedIn: () => void;
+    isLoggedIn: boolean;
     showLoginModal: boolean;
     setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -25,12 +26,24 @@ export const LoginProvider = (props: PropsType) => {
 
     const[loginError, setLoginError] = useState<String>("");
     const[showLoginModal, setShowLoginModal] = useState<boolean>(false);
+    const[isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
 
-    const isLoggedIn = () => {
-      //need an axios call for checking if user is logged in
-      return false;
-    }
+    const checkIfLoggedIn = () => {
+      Axios.get(
+        process.env.REACT_APP_API_BACKEND_URL + "/auth/is-logged-in", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        withCredentials: true
+      }).then((resp) => {
+        setIsLoggedIn(resp.data);
+      })
+        .catch((error) => {
+          console.log(error);
+          setIsLoggedIn(false);
+        });
+    };
 
     const clearLoginError = () => {
       setLoginError("");
@@ -60,6 +73,7 @@ export const LoginProvider = (props: PropsType) => {
             tryLogin,
             loginError,
             clearLoginError,
+            checkIfLoggedIn,
             isLoggedIn,
             showLoginModal,
             setShowLoginModal}}>

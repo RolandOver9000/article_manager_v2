@@ -2,7 +2,9 @@ package com.codecool.articlemanager.articlemanager.controller;
 
 import com.codecool.articlemanager.articlemanager.model.dto.LoginDTO;
 import com.codecool.articlemanager.articlemanager.model.dto.RegistrationDTO;
+import com.codecool.articlemanager.articlemanager.security.service.JwtService;
 import com.codecool.articlemanager.articlemanager.service.LoginService;
+import com.codecool.articlemanager.articlemanager.service.LogoutService;
 import com.codecool.articlemanager.articlemanager.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,8 @@ public class AuthenticationController {
 
     private final LoginService loginService;
     private final RegistrationService registrationService;
+    private final LogoutService logoutService;
+    private final JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
@@ -33,6 +37,32 @@ public class AuthenticationController {
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, "Error during login.");
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse httpResponse) {
+        log.info("Logout request received.");
+        try {
+            log.info("User is logging out.");
+            logoutService.logout(httpResponse);
+            return ResponseEntity.ok("User successfully logged out.");
+        } catch (Exception e) {
+            log.error("Error during logging out.");
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Error during logging out.");
+        }
+    }
+
+    @GetMapping("/is-logged-in")
+    public ResponseEntity<Boolean> isLoggedIn(@CookieValue(value="JWT" ,required=false) String jwt) {
+        log.info("Check if user logged in with token: " + jwt);
+        if(jwt != null && jwtService.validateToken(jwt)) {
+            log.info("User is logged in.");
+            return ResponseEntity.ok(true);
+        }
+        log.error("User is not logged in.");
+        throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED, "User is not logged in.");
     }
 
     @PostMapping("/registration")

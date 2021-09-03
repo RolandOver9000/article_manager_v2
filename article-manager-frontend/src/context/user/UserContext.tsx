@@ -19,7 +19,7 @@ interface UserContextType {
     updateUserProfile: (value: UserProfileDataType) => void;
     getAllUsersData: () => void;
     allUsersData: UserProfileDataType[];
-    deleteUserByEamil: (value: string) => void;
+    deleteUserById: (value: string) => void;
 }
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -29,18 +29,18 @@ export const UserProvider = (props: PropsType) => {
     const [allUsersData, setAllUsersData] = useState<UserProfileDataType[]>([{}] as UserProfileDataType[]);
 
     const getLoggedInUserData = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/user", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/user/logged-in", {
         headers: {
             "Content-Type": "application/json",
         },
         withCredentials: true
     }).then((resp) => {
-        setUserData(resp.data.user);
+        setUserData(resp.data);
     })
     }
 
     const updateUserProfile = (updatedProfile: UserProfileDataType) => {
-        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/api/user", updatedProfile, {
+        Axios.put(process.env.REACT_APP_API_BACKEND_URL + "/user", updatedProfile, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -54,7 +54,7 @@ export const UserProvider = (props: PropsType) => {
     }
 
     const getAllUsersData = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/api/users", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/user", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -64,8 +64,8 @@ export const UserProvider = (props: PropsType) => {
         })
     }
 
-    const deleteUserByEamil = (email: string) => {
-        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/api/users/" + email, {
+    const deleteUserById = (id: string) => {
+        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/user/" + id, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -83,7 +83,7 @@ export const UserProvider = (props: PropsType) => {
             updateUserProfile,
             getAllUsersData,
             allUsersData,
-            deleteUserByEamil
+            deleteUserById
         }}>
             {props.children}
         </UserContext.Provider>

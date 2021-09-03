@@ -25,7 +25,7 @@ public class CommentEntity {
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @ManyToOne
     private ArticleEntity article;
 
     @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)

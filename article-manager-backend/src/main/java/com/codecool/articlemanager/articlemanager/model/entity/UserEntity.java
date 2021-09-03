@@ -28,7 +28,7 @@ public class UserEntity {
 
     private String password;
 
-    @ManyToMany(cascade = {CascadeType.REMOVE})
+    @ManyToMany
     private List<ArticleEntity> favorites;
 
     @ElementCollection

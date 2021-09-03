@@ -15,8 +15,9 @@ export default function EditUserProfileModal() {
         console.log('Failed:', errorInfo);
     }
 
-    const tryUpdateUserProfile = (event: UserProfileDataType) => {
-        updateUserProfile(event);
+    const tryUpdateUserProfile = (updatedUserProfileData: UserProfileDataType) => {
+        updatedUserProfileData.id = userData.id;
+        updateUserProfile(updatedUserProfileData);
         handleClose();
     }
 

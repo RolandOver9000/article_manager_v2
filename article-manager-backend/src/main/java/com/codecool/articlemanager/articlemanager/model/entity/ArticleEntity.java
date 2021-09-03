@@ -1,5 +1,6 @@
 package com.codecool.articlemanager.articlemanager.model.entity;
 
+import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,14 +30,14 @@ public class ArticleEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDateTime;
 
-    @ManyToMany()
+    @ManyToMany
     private List<TagEntity> tagList;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @ManyToOne
     private UserEntity author;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private List<CommentEntity> comments;
 
@@ -46,4 +47,17 @@ public class ArticleEntity {
     private void updateTimestamp() {
         this.updateDateTime = new Date();
     }
+
+    public static ArticleEntity transformIncomingDTO(IncomingArticleDTO articleDTO,
+                                                     List<TagEntity> tags,
+                                                     UserEntity author) {
+        return ArticleEntity.builder()
+                .author(author)
+                .title(articleDTO.getTitle())
+                .body(articleDTO.getBody())
+                .description(articleDTO.getDescription())
+                .tagList(tags)
+                .build();
+    }
+
 }
