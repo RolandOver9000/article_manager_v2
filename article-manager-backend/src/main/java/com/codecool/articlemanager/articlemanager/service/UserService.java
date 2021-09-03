@@ -47,4 +47,8 @@ public class UserService {
         List<UserEntity> foundUsers = userRepository.findAll();
         return foundUsers.stream().map(UserDTO::transformUserEntity).collect(Collectors.toList());
     }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
 }
