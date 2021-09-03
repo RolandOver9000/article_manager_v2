@@ -50,4 +50,15 @@ public class UserController {
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during updating user details.");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) {
+        try{
+            userService.deleteUserById(id);
+            return ResponseEntity.ok("User successfully deleted.");
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during deleting user.");
+        }
+    }
 }
