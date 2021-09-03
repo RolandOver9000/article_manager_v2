@@ -3,7 +3,7 @@
 This will be an article manager application where you can manage your site's articles and users.
 
 The current version of the application is on the **development** branch.
-The frontend was setup for another backend (which has the same purpose as the backend here). I am working on to synchronize the frontend with the new backend.<br><br>
+<br><br>
 
 ## Current Features
 - User authentication, authorization
