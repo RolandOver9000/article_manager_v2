@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +34,6 @@ public class UserService {
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setImage(userDTO.getImage());
         userEntity.setUsername(userDTO.getUsername());
-        System.out.println(userEntity);
         return userEntity;
     }
 
@@ -41,5 +41,10 @@ public class UserService {
         UserEntity searchedUser = getUserById(userDTO.getId());
         UserEntity updatedUser = updateUserEntityByUserDTO(searchedUser, userDTO);
         userRepository.save(updatedUser);
+    }
+
+    public List<UserDTO> getAllUserDetails() {
+        List<UserEntity> foundUsers = userRepository.findAll();
+        return foundUsers.stream().map(UserDTO::transformUserEntity).collect(Collectors.toList());
     }
 }
