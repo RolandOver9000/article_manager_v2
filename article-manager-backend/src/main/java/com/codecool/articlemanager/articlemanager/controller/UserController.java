@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @Slf4j
@@ -25,6 +27,16 @@ public class UserController {
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting user details.");
+        }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<UserDTO>> getUserDetails() {
+        try{
+            return ResponseEntity.ok(userService.getAllUserDetails());
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting all user details.");
         }
     }
 
