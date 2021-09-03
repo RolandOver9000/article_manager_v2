@@ -54,7 +54,7 @@ export const UserProvider = (props: PropsType) => {
     }
 
     const getAllUsersData = () => {
-        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/users", {
+        Axios.get(process.env.REACT_APP_API_BACKEND_URL + "/user", {
             headers: {
                 "Content-Type": "application/json",
             },
