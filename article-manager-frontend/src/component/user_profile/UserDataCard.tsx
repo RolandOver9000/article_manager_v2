@@ -8,7 +8,7 @@ type PropsType = {
 }
 
 export default function UserDataCard(props: PropsType) {
-    const {userData, getLoggedInUserData, deleteUserByEamil} = useContext(UserContext);
+    const {userData, getLoggedInUserData, deleteUserById} = useContext(UserContext);
 
     const getUserProfileModifierButton = () => {
         if(userData.id === props.userProfileData.id) {
@@ -16,7 +16,7 @@ export default function UserDataCard(props: PropsType) {
         } else {
             return(
                 <Button onClick={() => (
-                    deleteUserByEamil(props.userProfileData.email))}>
+                    deleteUserById(props.userProfileData.id.toString()))}>
                     Delete user profile
                 </Button>
             )

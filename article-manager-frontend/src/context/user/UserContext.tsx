@@ -19,7 +19,7 @@ interface UserContextType {
     updateUserProfile: (value: UserProfileDataType) => void;
     getAllUsersData: () => void;
     allUsersData: UserProfileDataType[];
-    deleteUserByEamil: (value: string) => void;
+    deleteUserById: (value: string) => void;
 }
 
 export const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -64,8 +64,8 @@ export const UserProvider = (props: PropsType) => {
         })
     }
 
-    const deleteUserByEamil = (email: string) => {
-        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/users/" + email, {
+    const deleteUserById = (id: string) => {
+        Axios.delete(process.env.REACT_APP_API_BACKEND_URL + "/user/" + id, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -83,7 +83,7 @@ export const UserProvider = (props: PropsType) => {
             updateUserProfile,
             getAllUsersData,
             allUsersData,
-            deleteUserByEamil
+            deleteUserById
         }}>
             {props.children}
         </UserContext.Provider>
