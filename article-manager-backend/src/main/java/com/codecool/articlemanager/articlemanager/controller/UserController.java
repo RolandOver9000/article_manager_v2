@@ -46,10 +46,12 @@ public class UserController {
 
     @PutMapping("")
     public ResponseEntity<String> updateUserDetails(@RequestBody UserDTO userDTO) {
+        log.info("Received put request for updating user details.");
         try{
             userService.updateUserDetailsById(userDTO);
             return ResponseEntity.ok("User successfully updated.");
         } catch (Exception e) {
+            log.error("Error during updating user details.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during updating user details.");
         }
