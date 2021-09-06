@@ -22,9 +22,11 @@ public class UserController {
 
     @GetMapping("/logged-in")
     public ResponseEntity<UserDTO> getUserDetails(@CookieValue(value="JWT") String jwt) {
+        log.info("Checking if user is logged in with token:" + jwt);
         try{
             return ResponseEntity.ok(userService.getUserDetailsByJwtToken(jwt));
         } catch (Exception e) {
+            log.error("User is not logged in or the server has some problems.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting user details.");
         }
@@ -32,9 +34,11 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<List<UserDTO>> getUserDetails() {
+        log.info("Received a get request for getting all users' details. ");
         try{
             return ResponseEntity.ok(userService.getAllUserDetails());
         } catch (Exception e) {
+            log.error("Error during getting all users' details.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting all user details.");
         }
@@ -42,10 +46,12 @@ public class UserController {
 
     @PutMapping("")
     public ResponseEntity<String> updateUserDetails(@RequestBody UserDTO userDTO) {
+        log.info("Received put request for updating user details.");
         try{
             userService.updateUserDetailsById(userDTO);
             return ResponseEntity.ok("User successfully updated.");
         } catch (Exception e) {
+            log.error("Error during updating user details.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during updating user details.");
         }
@@ -53,10 +59,12 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) {
+        log.info("Received delete request for deleting user. UserId: " + id.toString());
         try{
             userService.deleteUserById(id);
             return ResponseEntity.ok("User successfully deleted.");
         } catch (Exception e) {
+            log.error("Error during deleting user.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during deleting user.");
         }

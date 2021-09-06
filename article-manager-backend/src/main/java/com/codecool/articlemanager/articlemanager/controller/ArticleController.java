@@ -2,7 +2,6 @@ package com.codecool.articlemanager.articlemanager.controller;
 
 import com.codecool.articlemanager.articlemanager.model.dto.IncomingArticleDTO;
 import com.codecool.articlemanager.articlemanager.model.dto.OutgoingArticleDTO;
-import com.codecool.articlemanager.articlemanager.model.entity.ArticleEntity;
 import com.codecool.articlemanager.articlemanager.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
