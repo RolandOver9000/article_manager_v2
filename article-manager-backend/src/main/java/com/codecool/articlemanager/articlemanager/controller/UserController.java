@@ -22,9 +22,11 @@ public class UserController {
 
     @GetMapping("/logged-in")
     public ResponseEntity<UserDTO> getUserDetails(@CookieValue(value="JWT") String jwt) {
+        log.info("Checking if user is logged in with token:" + jwt);
         try{
             return ResponseEntity.ok(userService.getUserDetailsByJwtToken(jwt));
         } catch (Exception e) {
+            log.error("User is not logged in or the server has some problems.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting user details.");
         }
