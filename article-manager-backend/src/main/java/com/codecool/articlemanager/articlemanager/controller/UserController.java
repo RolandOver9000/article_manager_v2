@@ -34,9 +34,11 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<List<UserDTO>> getUserDetails() {
+        log.info("Received a get request for getting all users' details. ");
         try{
             return ResponseEntity.ok(userService.getAllUserDetails());
         } catch (Exception e) {
+            log.error("Error during getting all users' details.");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Error during getting all user details.");
         }
